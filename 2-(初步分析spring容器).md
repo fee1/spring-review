@@ -9,7 +9,7 @@ public interface ApplicationContext extends EnvironmentCapable, ListableBeanFact
 		MessageSource, ApplicationEventPublisher, ResourcePatternResolver 
 ```
 #### 我们使用IDEA的类分析工具，把光标选中当前类名，左上角——>Navigate——>Type Hierarchy，展开查看类的继承状态
-![Image](images/image1.png)
+![ScreenShot](images/image1.png)
 ### 很明显这个接口类继承自BeanFactory，我们再查看一下ApplicationContext有哪些实现类，很明显我们使用的AnnotationConfigApplicationContext位列其中
 ![Image](./images/2.png)
 #### 小结

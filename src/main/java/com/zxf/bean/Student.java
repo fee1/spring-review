@@ -5,7 +5,11 @@ import org.springframework.stereotype.Component;
 
 @Data
 @Component
-public class Student {
+public class Student extends People  {
+
+    public Student(){
+        System.out.println("学生类创建！");
+    }
 
     private String name;
 

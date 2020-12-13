@@ -9,11 +9,9 @@ public interface ApplicationContext extends EnvironmentCapable, ListableBeanFact
 		MessageSource, ApplicationEventPublisher, ResourcePatternResolver 
 ```
 #### 我们使用IDEA的类分析工具，把光标选中当前类名，左上角——>Navigate——>Type Hierarchy，展开查看类的继承状态
-![Image text](./images/1.png)
-![Image text](https://github.com/fee1/spring-review/blob/master/images/1.png)
+![Image](./images/1.png)
 ### 很明显这个接口类继承自BeanFactory，我们再查看一下ApplicationContext有哪些实现类，很明显我们使用的AnnotationConfigApplicationContext位列其中
-![Image_text](./images/2.png)
-![Image text](https://github.com/fee1/spring-review/blob/master/images/2.png)
+![Image](./images/2.png)
 #### 小结
 ```text
     通过简单使用spring存取bean，我们可以知道BeanFactory是所有ApplicationContext的父接口，他们拥有的功能来自BeanFactory，并再BeanFactory的基础上不断

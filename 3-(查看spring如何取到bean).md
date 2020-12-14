@@ -56,3 +56,54 @@ GenericApplicationContext类实现了这个方法，我们需要从哪儿入手�
 		return doGetBean(name, requiredType, null, false);
 	}
 ```
+##### doGetBean()方法解析
+###### 注释大概意思为，返回一个实例，这个实例bean可以是共享或者独立的，也就我们常说的单例(Singleton)或者多例(Prototype)的bean
+![Image](./images/11.png)
+```text
+    name: bean的名字
+    requiredType: 创建的bean的类型
+    args: 创建bean实例需要的参数
+    typeCheckOnly: 是否对实例进行类型检查 (我也不太清楚其作用，但是不影响)
+```
+###### 方法知识点一： final String beanName = transformedBeanName(name);
+transformedBeanName方法：返回这个bean的名称，如果有必要可以去除FactoryBean的'&'前缀去掉。
+```java
+	protected String transformedBeanName(String name) {
+		return canonicalName(BeanFactoryUtils.transformedBeanName(name));
+	}
+```
+BeanFactoryUtils.transformedBeanName方法：返回这个bean的名称，如果有必要可以去除FactoryBean的'&'前缀去掉。
+```java
+    public static String transformedBeanName(String name) {
+		Assert.notNull(name, "'name' must not be null");
+		if (!name.startsWith(BeanFactory.FACTORY_BEAN_PREFIX)) {
+			return name;
+		}
+		return transformedBeanNameCache.computeIfAbsent(name, beanName -> {
+			do {
+				beanName = beanName.substring(BeanFactory.FACTORY_BEAN_PREFIX.length());
+			}
+			while (beanName.startsWith(BeanFactory.FACTORY_BEAN_PREFIX));
+			return beanName;
+		});
+	}
+```
+canonicalName方法：从aliasMap(别名map)中获取到真正的bean的ID (不指定bean的名称的时候，spring会默认以类名为bean的ID，所以不能有两个bean的名称是一样的，一样的bean名称，ID会冲突报错)
+```java
+	/** Map from alias to canonical name. */
+	private final Map<String, String> aliasMap = new ConcurrentHashMap<>(16);
+
+    public String canonicalName(String name) {
+		String canonicalName = name;
+		// Handle aliasing...
+		String resolvedName;
+		do {
+			resolvedName = this.aliasMap.get(canonicalName);
+			if (resolvedName != null) {
+				canonicalName = resolvedName;
+			}
+		}
+		while (resolvedName != null);
+		return canonicalName;
+	}
+```

@@ -34,11 +34,6 @@ GenericApplicationContext类实现了这个方法，我们需要从哪儿入手�
 ```
 ###### 这个beanFactory是从哪里来的呢？
 我们查看这个类的构造方法，我们可知beanFactory在构造器方法就进行了初始化赋值。
-```text
-    基础差劝退：在new对象的时候，会首先调用这个类的构造方法，这个类的构造方法不管它写没写super()，其实都会隐式有这个super存在于构造方法中。
-spuer会调用基类的构造方法。
-    就算再细也可能会有疏漏。要么背下来，或者基础较好的看得就会很顺利。
-```
 ```java
 	/**
 	 * Create a new GenericApplicationContext.
@@ -47,5 +42,17 @@ spuer会调用基类的构造方法。
 	 */
 	public GenericApplicationContext() {
 		this.beanFactory = new DefaultListableBeanFactory();
+	}
+```
+##### getBean()方法解析
+###### beanFactory的getBean方法有四个实现类。
+![Image](./images/9.png)
+###### 综合上getBeanFactory()方法的分析，我们可以知道，beanFactory的实现指向DefaultListableBeanFactory类，我们到DefaultListableBeanFactory进行解析此类结构
+![Image](./images/10.png)
+###### 由解析DefaultListableBeanFactory的结构我们可以知道，getBean方法实现是在AbstractBeanFactory类中，我们通过BeanFactory找到对应的实现方法
+```java
+    @Override
+	public <T> T getBean(String name, Class<T> requiredType) throws BeansException {
+		return doGetBean(name, requiredType, null, false);
 	}
 ```

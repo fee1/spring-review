@@ -12,8 +12,8 @@ public class SpringStarter {
 
     public static void main(String[] args) {
         ApplicationContext applicationContext = new AnnotationConfigApplicationContext(StartConfigrantion.class);
-        Student student = applicationContext.getBean("student", Student.class);
-        System.out.println(student);
+        System.out.println(applicationContext.getBean("teacherFactoryBean"));
     }
+
 
 }

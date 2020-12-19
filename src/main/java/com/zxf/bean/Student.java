@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 public class Student extends People  {
 
     public Student(){
-        System.out.println("学生类创建！");
+        System.out.println("Student 类创建！");
     }
 
     private String name;

@@ -6,7 +6,7 @@ import lombok.Data;
 public abstract class People {
 
     public People(){
-        System.out.println("人类基类创建!");
+        System.out.println("People 基类创建!");
     }
 
     private String tall;

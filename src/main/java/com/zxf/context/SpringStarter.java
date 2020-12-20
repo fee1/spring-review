@@ -12,7 +12,7 @@ public class SpringStarter {
 
     public static void main(String[] args) {
         ApplicationContext applicationContext = new AnnotationConfigApplicationContext(StartConfigrantion.class);
-        System.out.println(applicationContext.getBean("teacherFactoryBean"));
+        System.out.println(applicationContext.getBean("&teacherFactoryBean"));
     }
 
 
